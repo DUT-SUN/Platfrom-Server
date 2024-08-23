@@ -1,0 +1,76 @@
+spring:
+  rabbitmq:
+    host: 81.70.175.60
+    port: 5672
+    username: sun
+    password: sun20030920
+    virtual-host: /
+    listener:
+      simple:
+        prefetch: 1 #每次获取一条，才能拿
+        acknowledge-mode: auto
+        retry:
+           enabled: true
+           initial-interval: 1000
+           multiplier: 1 #下次等待时间的倍数
+           max-attempts: 3
+           stateless: true #没有事务的代码就写true表示无状态
+
+  jackson:
+    date-format: 'yyyy-MM-dd HH-mm-ss'
+    time-zone: 'GMT+8'
+  session:
+    store-type: redis
+    redis:
+      flush-mode: on_save
+      namespace: spring:session
+    timeout: 1800
+#  redis:
+#    lettuce:
+#      pool:
+#        min-idle: 1
+#        max-idle: 8
+#        max-wait: 1
+#        max-active: 8
+#    sentinel:
+#      master: mymaster
+#      nodes:
+#        - 81.70.175.60:27001
+#        - 81.70.175.60:27002
+#        - 81.70.175.60:27003
+#    database: 0
+#    connect-timeout: 10000
+#    password:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    password: 123456
+    lettuce:
+      pool:
+        min-idle: 1
+        max-idle: 8
+        max-wait: 1
+        max-active: 8
+
+  datasource:
+    url: jdbc:mysql://81.70.175.60:3306/mycnblog?characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mybatis/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  logging:
+    level:
+      com:
+        example:
+          blogssm: info
+sun:
+  jwt:
+    header: Authorization
+    expire: 604800 # 7天，s为单位
+    secret: sun20030920

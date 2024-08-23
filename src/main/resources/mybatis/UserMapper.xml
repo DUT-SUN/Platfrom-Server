@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blogssm.mapper.UserMapper">
+   <insert id="reg">
+      insert into userinfo(username,password,address)
+      values(#{username},#{password},#{address})
+   </insert>
+   <select id="getUserByName" resultType="com.example.blogssm.entity.UserInfo">
+      select * from userinfo where username=#{username}  LIMIT 1
+   </select>
+   <select id="getUserById" resultType="com.example.blogssm.entity.UserInfo">
+      select * from userinfo where id=#{id}
+   </select>
+   <update id="uploadAvatarById">
+      UPDATE userinfo
+      SET avater = #{avater}
+      WHERE username = #{username}
+   </update>
+   <select id="getNameById"  resultType="string">
+      select username from userinfo where id=#{id}
+   </select>
+</mapper>
